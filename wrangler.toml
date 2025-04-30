@@ -8,9 +8,9 @@ compatibility_flags = ["nodejs_compat"]
 enabled = true
 
 [vars]
-PRIVATE_COOKIE_NAMES = ["utdr-_session", "utdr-Token"]
+PRIVATE_COOKIE_NAMES = ["terranil_session", "terranilToken"]
 CLIENT_PREFS_COOKIE_NAME = "utdr-mwclientpreferences"
 CLIENT_PREFS_CLASS_PREFIXES = ["skin-theme-clientpref-", "vector-feature-limited-width-clientpref-", "vector-feature-page-tools-pinned-clientpref-"]
 PAGE_TTL = 86400
 MISSING_PAGE_TTL = 3600
-CACHED_NAMESPACES = ["", "Category", "Project", "Undertale_Wiki", "Deltarune_Wiki"]
+CACHED_NAMESPACES = ["", "Category", "Project", "Terra_Nil_Wiki"]
