@@ -4,12 +4,12 @@
  */
 declare namespace Cloudflare {
 	interface Env {
-		PRIVATE_COOKIE_NAMES: ['utdr-_session', 'utdr-Token'];
-		CLIENT_PREFS_COOKIE_NAME: 'utdr-mwclientpreferences';
+		PRIVATE_COOKIE_NAMES: ['terranil_session', 'terranilToken'];
+		CLIENT_PREFS_COOKIE_NAME: 'terranilmwclientpreferences';
 		CLIENT_PREFS_CLASS_PREFIXES: ['skin-theme-clientpref-', 'vector-feature-limited-width-clientpref-', 'vector-feature-page-tools-pinned-clientpref-'];
 		PAGE_TTL: 600;
 		MISSING_PAGE_TTL: 60;
-		CACHED_NAMESPACES: ['', 'Category', 'Project', 'Undertale_Wiki', 'Deltarune_Wiki'];
+		CACHED_NAMESPACES: ['', 'Category', 'Project', 'Terra_Nil_Wiki'];
 	}
 }
 interface Env extends Cloudflare.Env {}
