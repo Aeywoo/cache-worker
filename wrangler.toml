@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "cache-worker"
+name = "cache-worker-two"
 main = "src/index.ts"
 compatibility_date = "2024-11-12"
 compatibility_flags = ["nodejs_compat"]
@@ -10,9 +10,9 @@ preview_urls = false
 enabled = true
 
 [vars]
-PRIVATE_COOKIE_NAMES = ["terranilwiki_session", "terranilwikiToken"]
-CLIENT_PREFS_COOKIE_NAME = "terranilwikimwclientpreferences"
+PRIVATE_COOKIE_NAMES = ["restorywiki_session", "restorywikiToken"]
+CLIENT_PREFS_COOKIE_NAME = "restorywikimwclientpreferences"
 CLIENT_PREFS_CLASS_PREFIXES = ["skin-theme-clientpref-", "vector-feature-limited-width-clientpref-", "vector-feature-page-tools-pinned-clientpref-"]
 PAGE_TTL = 86400
 MISSING_PAGE_TTL = 3600
-CACHED_NAMESPACES = ["", "Category", "Help", "Project", "Terra_Nil_Wiki"]
+CACHED_NAMESPACES = ["", "Category", "Help", "Project", "Main_Page"]
