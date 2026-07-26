@@ -8,6 +8,7 @@ preview_urls = false
 
 [observability]
 enabled = true
+head_sampling_rate = 0.33
 
 [vars]
 PRIVATE_COOKIE_NAMES = ["utdrprod-_session", "utdrprod-Token"]
