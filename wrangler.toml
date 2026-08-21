@@ -11,10 +11,10 @@ enabled = true
 head_sampling_rate = 0.33
 
 [vars]
-PRIVATE_COOKIE_NAMES = ["utdrprod-_session", "utdrprod-Token"]
-PRIVATE_COOKIE_NAMES_DEV = ["utdrdev-_session", "utdrdev-Token"]
-CLIENT_PREFS_COOKIE_NAME = "utdrprod-mwclientpreferences"
-CLIENT_PREFS_COOKIE_NAME_DEV = "utdrdev-mwclientpreferences"
+PRIVATE_COOKIE_NAMES = ["terranilwiki_session", "terranilwikiToken"]
+PRIVATE_COOKIE_NAMES_DEV = ["devterranilwiki_session", "devterranilwikiToken"]
+CLIENT_PREFS_COOKIE_NAME = "terranilwikimwclientpreferences"
+CLIENT_PREFS_COOKIE_NAME_DEV = "devterranilwikimwclientpreferences"
 CLIENT_PREFS_CLASS_PREFIXES = ["skin-theme-clientpref-", "vector-feature-limited-width-clientpref-", "vector-feature-page-tools-pinned-clientpref-"]
 PAGE_TTL = 86400
 MISSING_PAGE_TTL = 3600
@@ -23,8 +23,7 @@ CACHED_NAMESPACES = [
     "Category",
     "Project",
     "File",
-    "Undertale_Wiki",
-    "Deltarune_Wiki",
+    "Terra_Nil_Wiki",
     "Categoría",
     "Categor%C3%ADa",
     "Categoria",
@@ -36,6 +35,5 @@ CACHED_NAMESPACES = [
     "Archivo",
     "Fichier",
     "ファイル",
-    "%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB",
-    "Wiki_Undertale_FR"
+    "%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB"
 ]

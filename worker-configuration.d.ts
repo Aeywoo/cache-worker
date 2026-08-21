@@ -2,14 +2,14 @@
 // Runtime types generated with workerd@1.20250321.0 2024-11-12 nodejs_compat
 declare namespace Cloudflare {
 	interface Env {
-		PRIVATE_COOKIE_NAMES: ["utdrprod-_Session","utdrprod-Token"];
-		PRIVATE_COOKIE_NAMES_DEV: ["utdrdev-_Session","utdrdev-Token"];
-		CLIENT_PREFS_COOKIE_NAME: "utdrprod-mwclientpreferences";
-		CLIENT_PREFS_COOKIE_NAME_DEV: "utdrdev-mwclientpreferences";
+		PRIVATE_COOKIE_NAMES: ["terranilwiki_session","terranilwikiToken"];
+		PRIVATE_COOKIE_NAMES_DEV: ["devterranilwiki_session","devterranilwikiToken"];
+		CLIENT_PREFS_COOKIE_NAME: "terranilwikimwclientpreferences";
+		CLIENT_PREFS_COOKIE_NAME_DEV: "devterranilwikimwclientpreferences";
 		CLIENT_PREFS_CLASS_PREFIXES: ["skin-theme-clientpref-","vector-feature-limited-width-clientpref-","vector-feature-page-tools-pinned-clientpref-"];
 		PAGE_TTL: 86400;
 		MISSING_PAGE_TTL: 3600;
-		CACHED_NAMESPACES: ["","Category","Project","Undertale_Wiki","Deltarune_Wiki","Categoría","Categor%C3%ADa","Categoria","Catégorie","Cat%C3%A9gorie","カテゴリ","%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA","Wiki_Undertale_FR"];
+		CACHED_NAMESPACES: ["","Category","Project","Terra_Nil_Wiki","Categoría","Categor%C3%ADa","Categoria","Catégorie","Cat%C3%A9gorie","カテゴリ","%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA"];
 	}
 }
 interface Env extends Cloudflare.Env {}
