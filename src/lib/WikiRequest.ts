@@ -12,7 +12,8 @@ const DISQUALIFYING_QUERY_KEYS = [
   'redirect',
   'useparsoid',
   'uselang',
-  'useskin'
+  'useskin',
+  'withgadget',
 ];
 
 interface Article {
@@ -20,11 +21,21 @@ interface Article {
   title: string;
 }
 
+enum EligibilityReason {
+  HasDisqualifyingQueryKey = 'query',
+  HasPrivateCookie = 'cookie',
+  NotInCachedNamespace = 'namespace',
+  Eligible = 'eligible',
+}
+
 export class WikiRequest {
   private req: Request;
-  private env: Env;
+  private readonly env: Env;
+  private readonly isDev: boolean;
   public readonly cookies: Record<string, string | undefined> = {};
   public readonly url: URL;
+  public readonly isEligibleForCache: boolean;
+  private readonly eligibilityReason: EligibilityReason;
 
   constructor(req: Request, env: Env) {
     this.req = req;
@@ -36,6 +47,9 @@ export class WikiRequest {
     }
 
     this.url = new URL(this.req.url);
+    this.isDev = this.url.host.startsWith('dev.');
+    this.eligibilityReason = this.getEligibility();
+    this.isEligibleForCache = this.eligibilityReason === EligibilityReason.Eligible;
   }
 
   extractArticle(title: string | null): Article | null {
@@ -61,6 +75,7 @@ export class WikiRequest {
       const title = this.url.searchParams.get('title');
       return this.extractArticle(title);
     } else if (this.url.pathname === '/') {
+      // NOTE: Not every wiki uses Main_Page as the main page.
       return { ns: '', title: 'Main_Page' };
     } else if (this.url.pathname.startsWith('/w/')) {
       // NOTE: We are not decoding the article URL here, because we don't
@@ -73,32 +88,33 @@ export class WikiRequest {
     return null;
   }
 
-  get isEligibleForCache(): boolean {
-    for (const cookieName of this.env.PRIVATE_COOKIE_NAMES) {
+  getEligibility(): EligibilityReason {
+    const cookieNames = this.isDev ?
+      this.env.PRIVATE_COOKIE_NAMES_DEV :
+      this.env.PRIVATE_COOKIE_NAMES;
+    for (const cookieName of cookieNames) {
       if (this.cookies[cookieName]) {
-        return false;
+        return EligibilityReason.HasPrivateCookie;
       }
     }
 
-    const article = this.targetArticle;
-    if (!article) {
-      return false;
-    }
-
     if (DISQUALIFYING_QUERY_KEYS.some(key => this.url.searchParams.has(key))) {
-      return false;
+      return EligibilityReason.HasDisqualifyingQueryKey;
     }
 
+    const article = this.targetArticle;
     const cachedNamespaces: string[] = this.env.CACHED_NAMESPACES;
-    if (!cachedNamespaces.includes(article.ns)) {
-      return false;
+    if (!article || !cachedNamespaces.includes(article.ns)) {
+      return EligibilityReason.NotInCachedNamespace;
     }
 
-    return true;
+    return EligibilityReason.Eligible;
   }
 
   getClientPrefs(): ClientPref[] {
-    const clientPrefsCookie = this.cookies[this.env.CLIENT_PREFS_COOKIE_NAME];
+    const clientPrefsCookie = this.cookies[this.isDev ?
+      this.env.CLIENT_PREFS_COOKIE_NAME_DEV :
+      this.env.CLIENT_PREFS_COOKIE_NAME];
     if (!clientPrefsCookie) {
       return [];
     }
@@ -132,6 +148,8 @@ export class WikiRequest {
       this.req = new Request(this.url.toString(), this.req);
     }
 
+    const headers = new Headers(this.req.headers);
+    headers.set('X-Eligibility-Reason', this.eligibilityReason);
     const res = await fetch(this.req, {
       cf: {
         cacheTtlByStatus: this.isEligibleForCache ? {
@@ -141,7 +159,8 @@ export class WikiRequest {
           '500-599': -1,
         } : undefined,
         cacheEverything: this.isEligibleForCache,
-      }
+      },
+      headers,
     });
 
     return new WikiResponse(res);
